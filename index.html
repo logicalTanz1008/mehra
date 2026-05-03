@@ -16,12 +16,11 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden; /* FIX */
-  overflow-y: hidden;
+  overflow: hidden;
   position: relative;
 }
 
-/* ✨ grain */
+/* ✨ Grain effect */
 body::before {
   content: "";
   position: absolute;
@@ -55,9 +54,10 @@ h1 {
   color: white;
   font-size: clamp(1.8rem, 5vw, 2.3rem);
   margin-bottom: 40px;
+  line-height: 1.3;
+  word-wrap: break-word;
 }
 
-/* buttons */
 .buttons {
   position: relative;
   width: 100%;
@@ -90,33 +90,14 @@ button {
   transition: left 0.12s linear, top 0.12s linear;
 }
 
-/* ✅ SUCCESS SCREEN FIXED */
 #success {
   display: none;
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-
-  color: white;
-  font-size: clamp(1.4rem, 4.5vw, 2.2rem);
-  font-family: 'Playfair Display', serif;
   text-align: center;
-
-  /* 🔥 CRITICAL FIXES */
-  max-width: 100vw;
-  overflow: hidden;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  white-space: normal;
-  line-height: 1.4;
-  letter-spacing: 0.5px;
-
+  color: white;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-family: 'Playfair Display', serif;
   animation: fadeIn 0.8s ease forwards;
+  padding: 20px;
 }
 
 @keyframes fadeIn {
@@ -124,16 +105,17 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 💖 hearts */
+/* 💖 Heart particles */
 .heart {
   position: fixed;
+  color: red;
   font-size: 20px;
   animation: float 1s ease-out forwards;
 }
 
 @keyframes float {
   to {
-    transform: translateY(-120px) scale(1.6);
+    transform: translateY(-100px) scale(1.5);
     opacity: 0;
   }
 }
@@ -152,7 +134,7 @@ button {
 </div>
 
 <div id="success">
-SHE SAID YES, SHEEEEEEE SAIDDDDDDDD YESSSSSSSJSFKSDNK SHE SAID YES OML OML OML OML YEAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYAYAYAYAYAYAYAYAYAYYAY HAPPIEST MOMENT OF MY ENTIRE LIFE KDNJDBVDUBVKDNCNKDCBKSCNKSCKNFKSNFKSDNSKDNSKNS I WILL CRY
+  SHE SAID YES, SHEEEEEEE SAIDDDDDDDD YESSSSSSSJSFKSDNK SHE SAID YES OML OML OML OML YEAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYAYAYAYAYAYAYAYAYAYYAY HAPPIEST MOMENT OF MY ENTIRE LIFE KDNJDBVDUBVKDNCNKDCBKSCNKSCKNFKSNFKSDNSKDNSKNS I WILL CRY
 </div>
 
 <script>
@@ -162,7 +144,7 @@ const yesBtn = document.getElementById("yesBtn");
 const main = document.getElementById("main");
 const success = document.getElementById("success");
 
-/* escape logic */
+/* 🧠 Escape logic */
 function moveAway(x, y) {
   const rect = noBtn.getBoundingClientRect();
 
@@ -193,16 +175,16 @@ document.addEventListener("mousemove", e => moveAway(e.clientX, e.clientY));
 document.addEventListener("touchstart", e => moveAway(e.touches[0].clientX, e.touches[0].clientY));
 document.addEventListener("touchmove", e => moveAway(e.touches[0].clientX, e.touches[0].clientY));
 
-/* 😏 yes grows */
+/* 💖 Yes grows slowly */
 let scale = 1;
 setInterval(() => {
   scale += 0.02;
   yesBtn.style.transform = `scale(${scale})`;
 }, 800);
 
-/* 💖 hearts */
+/* 💥 Heart burst */
 function createHearts(x, y) {
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < 12; i++) {
     const heart = document.createElement("div");
     heart.innerHTML = "💖";
     heart.className = "heart";
@@ -211,7 +193,7 @@ function createHearts(x, y) {
     heart.style.top = y + "px";
 
     const angle = Math.random() * 2 * Math.PI;
-    const distance = 60 + Math.random() * 50;
+    const distance = 60 + Math.random() * 40;
 
     heart.style.transform = `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`;
 
@@ -225,7 +207,7 @@ yesBtn.addEventListener("click", (e) => {
   createHearts(e.clientX || window.innerWidth/2, e.clientY || window.innerHeight/2);
 
   main.style.display = "none";
-  success.style.display = "flex";
+  success.style.display = "block";
 });
 </script>
 
